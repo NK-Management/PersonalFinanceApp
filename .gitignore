@@ -1,0 +1,23 @@
+# Virtual environment
+venv/
+
+# Python bytecode
+__pycache__/
+*.pyc
+*.pyo
+
+# System files
+.DS_Store
+
+# Docker
+*.log
+*.pid
+
+# Environment variables
+.env
+
+# Coverage reports
+htmlcov/
+.coverage
+*.cover
+coverage.xml
