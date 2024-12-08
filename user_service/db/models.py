@@ -1,4 +1,4 @@
-from db.db_setup import db
+from user_service.db.db_setup import db
 from werkzeug.security import generate_password_hash, check_password_hash
 
 class UserRole(db.Model):

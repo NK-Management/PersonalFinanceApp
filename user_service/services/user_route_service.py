@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify
-from auth.jwt_handler import get_current_user
+from user_service.services.auth.jwt_handler import get_current_user
 
 user_blueprint = Blueprint("user", __name__)
 

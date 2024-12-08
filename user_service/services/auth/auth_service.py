@@ -1,8 +1,8 @@
 from flask import Blueprint, request, jsonify
-from db.models import User, UserRole
-from db.db_setup import db
-from auth.jwt_handler import generate_token, get_current_user
-from auth.cache_handler import cache_token, invalidate_token
+from user_service.db.models import User, UserRole
+from user_service.db.db_setup import db
+from user_service.services.auth.jwt_handler import generate_token, get_current_user
+from user_service.services.cache.cache_handler import cache_token, invalidate_token
 
 auth_blueprint = Blueprint("auth", __name__)
 
@@ -64,7 +64,10 @@ def login():
     if not user or not user.check_password(password):
         return jsonify({"message": "Invalid credentials"}), 401
 
+    # Generate token for the user
     token = generate_token(user)
+    
+    # Cache the token using the user's ID
     cache_token(user.id, token)
 
     return jsonify({"token": token, "role": user.role.role_name}), 200
@@ -75,7 +78,8 @@ def logout():
     Logs out a user and invalidates their token.
     """
     user = get_current_user()
-    invalidate_token(user["id"])
+    invalidate_token(user["id"])  # Invalidate the token by removing it from the cache
+    
     return jsonify({"message": "Logged out successfully"}), 200
 
 @auth_blueprint.route("/create_role", methods=["POST"])
