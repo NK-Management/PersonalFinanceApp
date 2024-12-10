@@ -28,29 +28,30 @@ def register():
     username = data.get("username")
     email = data.get("email")
     password = data.get("password")
-    role_name = data.get("role", "user")  # Default role is "user"
-
-    # Prevent non-admins from setting custom roles
-    current_user = get_current_user()
-    if role_name != "user" and (not current_user or current_user["role"] != "admin"):
-        return jsonify({"message": "Only admins can set custom roles."}), 403
-
-    # Validate role
-    role = UserRole.query.filter_by(role_name=role_name).first()
-    if not role:
-        return jsonify({"message": f"Role '{role_name}' does not exist."}), 400
+    role_name = "user"  # Default role is always "user"
 
     # Check if email already exists
     if User.query.filter_by(email=email).first():
         return jsonify({"message": "User with this email already exists."}), 400
 
-    # Create user
+    # Validate the role (role_name is always "user" here unless admin explicitly sets it)
+    role = UserRole.query.filter_by(role_name=role_name).first()  # "user" role must exist
+    if not role:
+        return jsonify({"message": f"Role '{role_name}' does not exist."}), 400
+
+    # Create user with default role "user"
     new_user = User(username=username, email=email, role_id=role.id)
     new_user.set_password(password)
     db.session.add(new_user)
     db.session.commit()
 
-    return jsonify({"message": f"User registered successfully with role '{role_name}'."}), 201
+    # Generate JWT token for the newly registered user
+    token = generate_token(new_user)
+
+    # Cache the token for future invalidation if necessary
+    cache_token(new_user.id, token)
+
+    return jsonify({"message": f"User registered successfully with role '{role_name}'.", "token": token}), 201
 
 @auth_blueprint.route("/login", methods=["POST"])
 def login():
@@ -64,10 +65,10 @@ def login():
     if not user or not user.check_password(password):
         return jsonify({"message": "Invalid credentials"}), 401
 
-    # Generate token for the user
+    # Generate JWT token for the user
     token = generate_token(user)
     
-    # Cache the token using the user's ID
+    # Cache the token for future invalidation
     cache_token(user.id, token)
 
     return jsonify({"token": token, "role": user.role.role_name}), 200
@@ -97,6 +98,7 @@ def create_role():
     if UserRole.query.filter_by(role_name=role_name).first():
         return jsonify({"message": f"Role '{role_name}' already exists."}), 400
 
+    # Create a new role
     new_role = UserRole(role_name=role_name)
     db.session.add(new_role)
     db.session.commit()
