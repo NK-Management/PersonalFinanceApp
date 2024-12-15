@@ -1,23 +1,37 @@
-# Virtual environment
-venv/
+# Node.js
+/node_modules/
+/dist/
+/build/
+/.env
 
-# Python bytecode
+# Python
 __pycache__/
-*.pyc
+/*.pyc
 *.pyo
+*.pyd
+*.db
+*.sqlite3
 
-# System files
-.DS_Store
+# VSCode
+.vscode/
+
+# Logs
+*.log
 
 # Docker
 *.log
-*.pid
+docker-compose.override.yml
 
-# Environment variables
-.env
+# Operating System files
+.DS_Store
+Thumbs.db
 
-# Coverage reports
-htmlcov/
-.coverage
-*.cover
-coverage.xml
+# Frontend build files
+frontend/build/
+frontend/node_modules/
+
+# Backend virtual environments
+virtualenv/
+venv/
+env/
+.venv/
