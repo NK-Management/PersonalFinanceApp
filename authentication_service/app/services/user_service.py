@@ -1,4 +1,4 @@
-from app.models.user import User, db
+from authentication_service.app.models.user import User, db
 
 
 class UserService:

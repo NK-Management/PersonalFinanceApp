@@ -1,6 +1,6 @@
 from flask_jwt_extended import get_jwt_identity, verify_jwt_in_request
 from functools import wraps
-from app.models.user import User
+from authentication_service.app.models.user import User
 
 def role_required(required_role):
     def wrapper(fn):

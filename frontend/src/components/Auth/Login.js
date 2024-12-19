@@ -10,12 +10,14 @@ const Login = () => {
     e.preventDefault();
     try {
       const response = await login({ email, password });
-      localStorage.setItem("token", response.data.token);
+      localStorage.setItem("token", response.access_token);
       setMessage("Login successful!");
     } catch (error) {
-      setMessage(error.response?.data?.message || "Login failed.");
+      console.error("Login error:", error); // Log full error details
+      setMessage(error.response?.message || "Login failed.");
     }
   };
+  
 
   return (
     <div>
