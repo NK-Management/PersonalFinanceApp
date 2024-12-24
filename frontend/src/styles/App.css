@@ -1,46 +1,91 @@
+/* General Styles */
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f4f4f9;
-  }
-  
-  h1, h2 {
-    color: #333;
-  }
-  
-  form {
-    margin: 20px 0;
-  }
-  
-  input {
-    display: block;
-    margin: 10px 0;
-    padding: 10px;
-    width: 300px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-  
-  button {
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  button:hover {
-    background-color: #0056b3;
-  }
-  
-  ul {
-    list-style-type: none;
-    padding: 0;
-  }
-  
-  li {
-    margin: 10px 0;
-  }
-  
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f9;
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center;     /* Center vertically */
+  min-height: 100vh;       /* Ensure full height of the viewport */
+}
+
+/* Main container to center the content */
+.container {
+  width: 80%;
+  max-width: 1200px; /* Optional: Set max width to limit the container size */
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px; /* Optional: Rounded corners for a smoother look */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Add shadow for a subtle 3D effect */
+}
+
+/* Heading Styles */
+h1, h2, h3 {
+  color: #333;
+  text-align: center;
+}
+
+/* Form and Input Styles */
+form {
+  margin: 20px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Input Fields */
+input {
+  display: block;
+  margin: 10px 0;
+  padding: 10px;
+  width: 100%;
+  max-width: 300px; /* Optional: Limit input width */
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* Button Styles */
+button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+  max-width: 300px; /* Optional: Limit button width */
+  margin: 10px 0;   /* Space between input and button */
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+/* List Styles */
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+ul li {
+  margin: 10px 0;
+}
+
+/* Section Styles for Dashboard */
+.section {
+  margin-bottom: 30px;
+}
+
+/* Link Styles */
+a {
+  color: #007bff;
+  text-decoration: none;
+  display: inline-block;
+  margin-top: 10px;
+}
+
+a:hover {
+  text-decoration: underline;
+}
